@@ -46,9 +46,7 @@ ionicfirebase.controller('indexController', ['$scope', '$state', function($scope
 ionicfirebase.controller('orderController', ['$scope', '$state', '$stateParams', '$firebaseObject', '$ionicLoading',  function($scope, $state, $stateParams, $firebaseObject, $ionicLoading) {
 
 	var ref = new Firebase('https://justin-beeper.firebaseio.com/orders/' + $stateParams.id);
-	var fbData = $firebaseObject(ref);
-
-	$scope.data = fbData;
+	$scope.data = $firebaseObject(ref);
 
 	$ionicLoading.show({
 		template: 'Bestelling ophalen...'
@@ -61,8 +59,8 @@ ionicfirebase.controller('orderController', ['$scope', '$state', '$stateParams',
 		}
 	});
 
-	fbData.$watch(function() {
-		if(fbData.complete)
+	$scope.data.$watch(function() {
+		if($scope.data.complete)
 		{
 			alert('Je bestelling is klaar!');
 		}
